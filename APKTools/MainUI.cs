@@ -37,12 +37,12 @@ namespace AutoAPKTool
         }
 
 
-        private void SetTextBoxStr(TextBox tb, string info)
+        private void SetTextBoxStr(string info)
         {
-            if (tb == null) throw new ArgumentNullException(nameof(tb));
-            tb.Text = info + Resources.enter;
-            tb.SelectionStart = tb.Text.Length;
-            tb.ScrollToCaret();
+            Log.AppendText(info);
+            Log.AppendText("\r\n");
+            Log.SelectionStart = Log.Text.Length;
+            Log.ScrollToCaret();
         }
 
         private const int ExcuteJava = 0;
@@ -50,7 +50,7 @@ namespace AutoAPKTool
 
         private void Excute(int flag, object args, bool isshow)
         {
-            base.Invoke(new Action(delegate { this.SetTextBoxStr(this.Log, "正在努力的工作中，请等待\r\n"); }));
+            base.Invoke(new Action(delegate { this.SetTextBoxStr("正在努力的工作中，请等待"); }));
             var sh = "";
             if (!string.IsNullOrEmpty(_apkinfo))
             {
@@ -81,13 +81,13 @@ namespace AutoAPKTool
                         _apkinfo += e.Data + "\n";
                         if (isshow)
                         {
-                            this.SetTextBoxStr(this.Log, this.Log.Text + e.Data);
+                            this.SetTextBoxStr(e.Data);
                         }
                     }));
                 };
                 process.ErrorDataReceived += delegate(object s, DataReceivedEventArgs e)
                 {
-                    base.Invoke(new Action(delegate { this.SetTextBoxStr(this.Log, this.Log.Text + e.Data); }
+                    base.Invoke(new Action(delegate { this.SetTextBoxStr(e.Data); }
                     ));
                 };
                 process.Start();
@@ -98,7 +98,7 @@ namespace AutoAPKTool
                 process.Dispose();
             }
 
-            base.Invoke(new Action(delegate { this.SetTextBoxStr(this.Log, this.Log.Text + "完成!"); }));
+            base.Invoke(new Action(delegate { this.SetTextBoxStr("完成!"); }));
         }
 
         // button Click
