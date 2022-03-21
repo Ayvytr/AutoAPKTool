@@ -39,6 +39,11 @@ namespace AutoAPKTool
 
         private void SetTextBoxStr(string info)
         {
+            if (null == info)
+            {
+                return;
+            }
+
             Log.AppendText(info);
             Log.AppendText("\r\n");
             Log.SelectionStart = Log.Text.Length;
@@ -370,6 +375,11 @@ namespace AutoAPKTool
 
         public void SetText(string str)
         {
+            if(str == null)
+            {
+                return;
+            }
+
             if (this.InvokeRequired) // 获取一个值指示此次调用是否来自非UI线程
             {
                 this.Invoke(new ChangeTextBoxValue(SetText), str);
