@@ -1,12 +1,11 @@
-﻿
-
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
 using AutoAPKTool.Properties;
+using IniParser;
 
 namespace AutoAPKTool
 {
@@ -15,8 +14,18 @@ namespace AutoAPKTool
     /// </summary>
     public partial class CertUI : Form
     {
+        private readonly string jksFilePath;
+        private readonly bool isReadIniJks;
+
         public CertUI()
         {
+            InitializeComponent();
+        }
+
+        public CertUI(string jksFilePath, bool isReadIniJks)
+        {
+            this.jksFilePath = jksFilePath;
+            this.isReadIniJks = isReadIniJks;
             //
             // The InitializeComponent() call is required for Windows Forms designer support.
             //
@@ -43,6 +52,7 @@ namespace AutoAPKTool
                 MessageBox.Show(Resources.pls_config, Resources.info_);
                 return;
             }
+
             var config = ConfigFile.LoadOrCreateFile(Constants.MySign);
             File.Copy(text_path.Text, Constants.CopySign, true);
             config["path"] = Constants.CopySign;
@@ -54,20 +64,13 @@ namespace AutoAPKTool
 
         private void Verify_keyClick(object sender, EventArgs e)
         {
-            var ver = this.verify_key_IS(text_path.Text, text_pass.Text, text_alis.Text, text_alis_pass.Text);
+            var ver = Util.verify_jks(text_path.Text, text_pass.Text, text_alis.Text, text_alis_pass.Text);
             new Thread(ExcuteJar).Start(ver);
         }
 
-        private string verify_key_IS(string path, string pass, string alis, string alis_pass)
-        {
-            return $"-jar \"{this.KEYVER}\"  \"{path}\"  \"{pass}\" \"{alis}\" \"{alis_pass}\"";
-        }
-
-        private readonly string KEYVER = ".\\tool\\keyver.jar";
-
 
         // ExcuteJar
-        private void ExcuteJar(object args)
+        public void ExcuteJar(object args)
         {
             var processStartInfo = new ProcessStartInfo("java.exe", args.ToString())
             {
@@ -76,14 +79,14 @@ namespace AutoAPKTool
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
-            var mes = "";
+            var msg = "";
             using (var process = new Process())
             {
                 process.StartInfo = processStartInfo;
                 process.OutputDataReceived +=
                     delegate(object s, DataReceivedEventArgs e)
                     {
-                        base.Invoke(new Action(delegate { mes += e.Data; }));
+                        Invoke(new Action(delegate { msg += e.Data + "\r\n"; }));
                     };
 
                 process.Start();
@@ -91,7 +94,70 @@ namespace AutoAPKTool
                 process.BeginErrorReadLine();
                 process.WaitForExit();
                 process.Close();
-                MessageBox.Show(mes);
+            }
+
+            //切主线程
+            base.Invoke(new Action(delegate
+            {
+                if (!File.Exists(Constants.IniSettingsPath))
+                {
+                    var fileStream = File.Create(Constants.IniSettingsPath);
+                    fileStream.Close();
+                }
+
+                var parser = new FileIniDataParser();
+                var data = parser.ReadFile(Constants.IniSettingsPath);
+
+                if (msg.Contains("验证成功"))
+                {
+                    var dialogResult = MessageBox.Show(
+                        isReadIniJks ? Resources.custom_jks_correct : Resources.ask_save_custom_jks,
+                        Resources.info,
+                        isReadIniJks ? MessageBoxButtons.OK : MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Information);
+
+                    if (dialogResult == DialogResult.Yes && !isReadIniJks)
+                    {
+                        data[Constants.CustomJks]["path"] = text_path.Text;
+                        data[Constants.CustomJks]["password"] = text_pass.Text;
+                        data[Constants.CustomJks]["alias"] = text_alis.Text;
+                        data[Constants.CustomJks]["alias_password"] = text_alis_pass.Text;
+
+                        //不生效
+                        // var mainUi = (MainUI)this.Owner;
+                        // mainUi.checkCustomJks();
+
+                        MessageBox.Show(Resources.save_succeed);
+                    }
+
+                    data[Constants.Config][Constants.SelectedCustomJks] = true.ToString();
+                }
+                else
+                {
+                    data["Config"][Constants.SelectedCustomJks] = false.ToString();
+
+                    MessageBox.Show(msg, Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                parser.WriteFile(Constants.IniSettingsPath, data);
+            }));
+        }
+
+        private void CertUI_Load(object sender, EventArgs e)
+        {
+            if (isReadIniJks)
+            {
+                var parser = new FileIniDataParser();
+                var data = parser.ReadFile(Constants.IniSettingsPath);
+                text_path.Text = data[Constants.CustomJks]["path"];
+                text_pass.Text = data[Constants.CustomJks]["password"];
+                text_alis.Text = data[Constants.CustomJks]["alias"];
+                text_alis_pass.Text = data[Constants.CustomJks]["alias_password"];
+                verify_key.PerformClick();
+            }
+            else
+            {
+                text_path.Text = jksFilePath;
             }
         }
     }

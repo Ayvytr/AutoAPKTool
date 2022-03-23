@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using AutoAPKTool.Properties;
+using IniParser;
 using Ionic.Zip;
 
 namespace AutoAPKTool
@@ -161,8 +162,6 @@ namespace AutoAPKTool
                 string args;
                 args = Util.GetDecompilerArg(inputApk, outputFolderName);
                 new Thread(() => { Excute(ExcuteJava, args, true); }).Start();
-               
-               
             }
         }
 
@@ -174,7 +173,7 @@ namespace AutoAPKTool
                 if (MessageBox.Show(Resources.need_signs, Resources.info, MessageBoxButtons.OKCancel) !=
                     DialogResult.OK)
                     return;
-                var allsign = Util.GetSignArg(apkName);
+                var allsign = Util.GetSignJksArg(apkName);
                 new Thread(() => { Excute(ExcuteJava, allsign, true); }).Start();
             }
             else if (!File.Exists(apkName) || Path.GetExtension(apkName) != ".apk")
@@ -183,7 +182,7 @@ namespace AutoAPKTool
             }
             else
             {
-                var cmd = Util.GetSignArg(apkName);
+                var cmd = Util.GetSignJksArg(apkName);
                 new Thread(() => { Excute(ExcuteJava, cmd, true); }).Start();
             }
         }
@@ -375,7 +374,7 @@ namespace AutoAPKTool
 
         public void SetText(string str)
         {
-            if(str == null)
+            if (str == null)
             {
                 return;
             }
@@ -434,12 +433,6 @@ namespace AutoAPKTool
             }).Start();
         }
 
-        private void Btn_BlogClick(object sender, EventArgs e)
-        {
-            Process.Start("https://blog.csdn.net/qq_26413249");
-        }
-
-        
 
         private void GetLauncher(object sender, EventArgs e)
         {
@@ -499,6 +492,11 @@ namespace AutoAPKTool
             new Thread(() => { Excute(ExcuteCmd, "/c " + Constants.Jadx, false); }).Start();
         }
 
+        private void openJdigui_Click(object sender, EventArgs e)
+        {
+            new Thread(() => { Excute(ExcuteJava, "-jar " + Constants.Jdgui, false); }).Start();
+        }
+
         private void Btn_jarToDexClick(object sender, EventArgs e)
         {
             var text = this.open_path.Text;
@@ -522,8 +520,73 @@ namespace AutoAPKTool
 
         private void MainUI_Load(object sender, EventArgs e)
         {
+            CheckSelectedCustomJks();
         }
 
-        
+        private void 默认签名ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switchSelectJksMenu(false);
+        }
+
+
+        private void 自定义签名ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var customJksExists = File.Exists(Constants.IniSettingsPath);
+            if (customJksExists)
+            {
+                var parser = new FileIniDataParser();
+                var data = parser.ReadFile(Constants.IniSettingsPath);
+                var path = data[Constants.CustomJks]["path"];
+                customJksExists = path != String.Empty && File.Exists(path);
+            }
+
+            if (customJksExists)
+            {
+                ShowCertDialog(null, true);
+            }
+            else
+            {
+                var dialogResult = MessageBox.Show(Resources.ask_custom_jks, Resources.info,
+                    MessageBoxButtons.YesNoCancel);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    var dialog = new OpenFileDialog() {Filter = Resources.support_jks};
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ShowCertDialog(dialog.FileName, false);
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //创建jks
+                }
+            }
+        }
+
+        private void ShowCertDialog(string jksFilePath, bool isReadInJks)
+        {
+            var certUi = new CertUI(jksFilePath, isReadInJks);
+            certUi.ShowDialog(this);
+
+            CheckSelectedCustomJks();
+        }
+
+        private void CheckSelectedCustomJks()
+        {
+            if (File.Exists(Constants.IniSettingsPath))
+            {
+                var parser = new FileIniDataParser();
+                var data = parser.ReadFile(Constants.IniSettingsPath);
+                var value = data[Constants.Config][Constants.SelectedCustomJks];
+                var selectedCustomJks = value != null && bool.Parse(value);
+                switchSelectJksMenu(selectedCustomJks);
+            }
+        }
+
+        private void switchSelectJksMenu(bool selectedCustomJks)
+        {
+            默认签名ToolStripMenuItem.Checked = !selectedCustomJks;
+            自定义签名ToolStripMenuItem.Checked = selectedCustomJks;
+        }
     }
 }

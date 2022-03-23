@@ -80,5 +80,15 @@
         {
             return string.Format("-jar " + Constants.ApkSigner + " -keystore " + Constants.KeyStore + "  -alias androiddebugkey -pswd android " + apkName);
         }
+
+        public static string GetSignJksArg(string apkName)
+        {
+            return string.Format("-jar " + Constants.ApkSigner + " sign --ks " + Constants.DefaultJks + "  --ks-pass pass:12345678 " + apkName);
+        }
+
+        public static string verify_jks(string path, string pass, string alis, string alis_pass)
+        {
+            return $"-jar \"{Constants.KEYVER}\"  \"{path}\"  \"{pass}\" \"{alis}\" \"{alis_pass}\"";
+        }
     }
 }

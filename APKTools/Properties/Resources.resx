@@ -199,4 +199,22 @@
   <data name="pls_insure_your_as_path" xml:space="preserve">
     <value>请检测根目录下是否包含as.exe程序</value>
   </data>
+  <data name="ask_custom_jks" xml:space="preserve">
+    <value>未发现自定义jks。“是”：选择jks；”否“：创建jks；”取消“；终止操作</value>
+  </data>
+  <data name="ask_save_custom_jks" xml:space="preserve">
+    <value>是否保存为自定义签名？</value>
+  </data>
+  <data name="custom_jks_correct" xml:space="preserve">
+    <value>自定义签名校验无误，无需保存</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="save_succeed" xml:space="preserve">
+    <value>保存成功</value>
+  </data>
+  <data name="support_jks" xml:space="preserve">
+    <value>支持类型|*.jks</value>
+  </data>
 </root>

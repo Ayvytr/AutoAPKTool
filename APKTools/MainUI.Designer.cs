@@ -45,12 +45,17 @@
             this.dec_odex = new System.Windows.Forms.Button();
             this.getArgs = new System.Windows.Forms.Button();
             this.menu = new System.Windows.Forms.MenuStrip();
-            this.配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jadxItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jdguiItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arm转机器码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开jadxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.博客ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.默认签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.自定义签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.生成签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -238,30 +243,38 @@
             // 
             this.menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.配置ToolStripMenuItem,
+            this.打开OpenToolStripMenuItem,
             this.arm转机器码ToolStripMenuItem,
-            this.打开jadxToolStripMenuItem,
-            this.关于ToolStripMenuItem});
+            this.关于ToolStripMenuItem,
+            this.settingsItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(501, 25);
             this.menu.TabIndex = 19;
             this.menu.Text = "配置";
             // 
-            // 配置ToolStripMenuItem
+            // 打开OpenToolStripMenuItem
             // 
-            this.配置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.签名ToolStripMenuItem});
-            this.配置ToolStripMenuItem.Name = "配置ToolStripMenuItem";
-            this.配置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.配置ToolStripMenuItem.Text = "配置";
+            this.打开OpenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jadxItem,
+            this.jdguiItem});
+            this.打开OpenToolStripMenuItem.Name = "打开OpenToolStripMenuItem";
+            this.打开OpenToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
+            this.打开OpenToolStripMenuItem.Text = "打开（&Open)";
             // 
-            // 签名ToolStripMenuItem
+            // jadxItem
             // 
-            this.签名ToolStripMenuItem.Name = "签名ToolStripMenuItem";
-            this.签名ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.签名ToolStripMenuItem.Text = "签名配置";
-            this.签名ToolStripMenuItem.Click += new System.EventHandler(this.签名ToolStripMenuItemClick);
+            this.jadxItem.Name = "jadxItem";
+            this.jadxItem.Size = new System.Drawing.Size(107, 22);
+            this.jadxItem.Text = "Jadx";
+            this.jadxItem.Click += new System.EventHandler(this.openJadx_Click);
+            // 
+            // jdguiItem
+            // 
+            this.jdguiItem.Name = "jdguiItem";
+            this.jdguiItem.Size = new System.Drawing.Size(107, 22);
+            this.jdguiItem.Text = "Jdgui";
+            this.jdguiItem.Click += new System.EventHandler(this.openJdigui_Click);
             // 
             // arm转机器码ToolStripMenuItem
             // 
@@ -270,27 +283,57 @@
             this.arm转机器码ToolStripMenuItem.Text = "Arm转机器码";
             this.arm转机器码ToolStripMenuItem.Click += new System.EventHandler(this.Btn_ArmToAsm_Click);
             // 
-            // 打开jadxToolStripMenuItem
-            // 
-            this.打开jadxToolStripMenuItem.Name = "打开jadxToolStripMenuItem";
-            this.打开jadxToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.打开jadxToolStripMenuItem.Text = "打开jadx";
-            this.打开jadxToolStripMenuItem.Click += new System.EventHandler(this.openJadx_Click);
-            // 
             // 关于ToolStripMenuItem
             // 
-            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.博客ToolStripMenuItem});
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
-            // 博客ToolStripMenuItem
+            // settingsItem
             // 
-            this.博客ToolStripMenuItem.Name = "博客ToolStripMenuItem";
-            this.博客ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.博客ToolStripMenuItem.Text = "博客";
-            this.博客ToolStripMenuItem.Click += new System.EventHandler(this.Btn_BlogClick);
+            this.settingsItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.默认签名ToolStripMenuItem,
+            this.自定义签名ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.生成签名ToolStripMenuItem,
+            this.签名ToolStripMenuItem});
+            this.settingsItem.Name = "settingsItem";
+            this.settingsItem.Size = new System.Drawing.Size(44, 21);
+            this.settingsItem.Text = "签名";
+            // 
+            // 默认签名ToolStripMenuItem
+            // 
+            this.默认签名ToolStripMenuItem.Checked = true;
+            this.默认签名ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.默认签名ToolStripMenuItem.Name = "默认签名ToolStripMenuItem";
+            this.默认签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.默认签名ToolStripMenuItem.Text = "使用默认签名";
+            this.默认签名ToolStripMenuItem.Click += new System.EventHandler(this.默认签名ToolStripMenuItem_Click);
+            // 
+            // 自定义签名ToolStripMenuItem
+            // 
+            this.自定义签名ToolStripMenuItem.Name = "自定义签名ToolStripMenuItem";
+            this.自定义签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.自定义签名ToolStripMenuItem.Text = "使用自定义签名";
+            this.自定义签名ToolStripMenuItem.Click += new System.EventHandler(this.自定义签名ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // 生成签名ToolStripMenuItem
+            // 
+            this.生成签名ToolStripMenuItem.Name = "生成签名ToolStripMenuItem";
+            this.生成签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.生成签名ToolStripMenuItem.Text = "生成签名";
+            // 
+            // 签名ToolStripMenuItem
+            // 
+            this.签名ToolStripMenuItem.Name = "签名ToolStripMenuItem";
+            this.签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.签名ToolStripMenuItem.Text = "签名设置";
+            this.签名ToolStripMenuItem.Click += new System.EventHandler(this.签名ToolStripMenuItemClick);
             // 
             // MainUI
             // 
@@ -352,12 +395,17 @@
 		private System.Windows.Forms.Button btn_compileDex;
 		private System.Windows.Forms.Button btn_env;
 		private System.Windows.Forms.MenuStrip menu;
-		private System.Windows.Forms.ToolStripMenuItem 配置ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem settingsItem;
 		private System.Windows.Forms.ToolStripMenuItem 签名ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 博客ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem arm转机器码ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 打开jadxToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 打开OpenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jadxItem;
+        private System.Windows.Forms.ToolStripMenuItem jdguiItem;
+        private System.Windows.Forms.ToolStripMenuItem 生成签名ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 默认签名ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 自定义签名ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

@@ -70,6 +70,24 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 未发现自定义jks。“是”：选择jks；”否“：创建jks；”取消“；终止操作 的本地化字符串。
+        /// </summary>
+        internal static string ask_custom_jks {
+            get {
+                return ResourceManager.GetString("ask_custom_jks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否保存为自定义签名？ 的本地化字符串。
+        /// </summary>
+        internal static string ask_save_custom_jks {
+            get {
+                return ResourceManager.GetString("ask_save_custom_jks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 执行完成 的本地化字符串。
         /// </summary>
         internal static string complete {
@@ -88,6 +106,15 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 自定义签名校验无误，无需保存 的本地化字符串。
+        /// </summary>
+        internal static string custom_jks_correct {
+            get {
+                return ResourceManager.GetString("custom_jks_correct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 DEX|*.dex|All|*.* 的本地化字符串。
         /// </summary>
         internal static string dex_files {
@@ -100,9 +127,18 @@ namespace AutoAPKTool.Properties {
         ///   查找类似 
         /// 的本地化字符串。
         /// </summary>
-            internal static string enter {
+        internal static string enter {
             get {
                 return ResourceManager.GetString("enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 错误 的本地化字符串。
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
             }
         }
         
@@ -287,11 +323,29 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 保存成功 的本地化字符串。
+        /// </summary>
+        internal static string save_succeed {
+            get {
+                return ResourceManager.GetString("save_succeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 支持类型|*.apk;*.jar;*.odex;*.dex 的本地化字符串。
         /// </summary>
         internal static string support_file {
             get {
                 return ResourceManager.GetString("support_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 支持类型|*.jks 的本地化字符串。
+        /// </summary>
+        internal static string support_jks {
+            get {
+                return ResourceManager.GetString("support_jks", resourceCulture);
             }
         }
         
