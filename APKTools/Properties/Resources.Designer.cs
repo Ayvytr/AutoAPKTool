@@ -88,6 +88,15 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 正在回编译dex... 的本地化字符串。
+        /// </summary>
+        internal static string compiling_dex {
+            get {
+                return ResourceManager.GetString("compiling_dex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 执行完成 的本地化字符串。
         /// </summary>
         internal static string complete {
@@ -115,11 +124,38 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 正在反编译... 的本地化字符串。
+        /// </summary>
+        internal static string decompiling {
+            get {
+                return ResourceManager.GetString("decompiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在反编译dex... 的本地化字符串。
+        /// </summary>
+        internal static string decompiling_dex {
+            get {
+                return ResourceManager.GetString("decompiling_dex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 DEX|*.dex|All|*.* 的本地化字符串。
         /// </summary>
         internal static string dex_files {
             get {
                 return ResourceManager.GetString("dex_files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在dex2jar 的本地化字符串。
+        /// </summary>
+        internal static string dex2jar_ing {
+            get {
+                return ResourceManager.GetString("dex2jar_ing", resourceCulture);
             }
         }
         
@@ -184,6 +220,24 @@ namespace AutoAPKTool.Properties {
         internal static string jar_files {
             get {
                 return ResourceManager.GetString("jar_files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在jar2dex... 的本地化字符串。
+        /// </summary>
+        internal static string jar2dex_ing {
+            get {
+                return ResourceManager.GetString("jar2dex_ing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 运行... 的本地化字符串。
+        /// </summary>
+        internal static string launching {
+            get {
+                return ResourceManager.GetString("launching", resourceCulture);
             }
         }
         
@@ -278,6 +332,33 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string odex_ing {
+            get {
+                return ResourceManager.GetString("odex_ing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在打开... 的本地化字符串。
+        /// </summary>
+        internal static string opening {
+            get {
+                return ResourceManager.GetString("opening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在打包... 的本地化字符串。
+        /// </summary>
+        internal static string packaging {
+            get {
+                return ResourceManager.GetString("packaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 路径: {0} 的本地化字符串。
         /// </summary>
         internal static string path {
@@ -337,6 +418,15 @@ namespace AutoAPKTool.Properties {
         internal static string save_succeed {
             get {
                 return ResourceManager.GetString("save_succeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在签名... 的本地化字符串。
+        /// </summary>
+        internal static string signing {
+            get {
+                return ResourceManager.GetString("signing", resourceCulture);
             }
         }
         

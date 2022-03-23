@@ -22,13 +22,6 @@
             return string.Format("-jar " + Constants.ApkFile + " " + apk);
         }
 
-        // public static string Signapk(string keypath, string keyw, string apkpath, string ais)
-        // {
-        //     return
-        //         string.Format(
-        //             "-jar " + Constants.ApkSigner + " -keystore \"{0}\" -alias  \"{1}\"  -pswd  \"{2}\"  \"{3}\"",
-        //             keypath, ais, keyw, apkpath);
-        // }
 
         public static string DecOdex(string inputOdex, string outputSmali)
         {
@@ -75,12 +68,6 @@
         {
             return $"/c \"\"{Constants.CheckProtect}\" l \"{inputApk}\"";
         }
-
-        // public static string GetSignArg(string apkName)
-        // {
-        //     return string.Format("-jar " + Constants.ApkSigner + " -keystore " + Constants.KeyStore +
-        //                          "  -alias androiddebugkey -pswd android " + apkName);
-        // }
 
         public static string GetSignJksArg(string apkName)
         {

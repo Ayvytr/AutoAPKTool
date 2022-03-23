@@ -41,7 +41,6 @@
             this.btn_decompileDex = new System.Windows.Forms.Button();
             this.btn_compileDex = new System.Windows.Forms.Button();
             this.btn_env = new System.Windows.Forms.Button();
-            this.my_sign = new System.Windows.Forms.Button();
             this.dec_odex = new System.Windows.Forms.Button();
             this.getArgs = new System.Windows.Forms.Button();
             this.menu = new System.Windows.Forms.MenuStrip();
@@ -84,12 +83,12 @@
             // btn_SignAPK
             // 
             this.btn_SignAPK.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_SignAPK.Location = new System.Drawing.Point(264, 74);
+            this.btn_SignAPK.Location = new System.Drawing.Point(321, 74);
             this.btn_SignAPK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_SignAPK.Name = "btn_SignAPK";
-            this.btn_SignAPK.Size = new System.Drawing.Size(95, 33);
+            this.btn_SignAPK.Size = new System.Drawing.Size(160, 33);
             this.btn_SignAPK.TabIndex = 3;
-            this.btn_SignAPK.Text = "签名";
+            this.btn_SignAPK.Text = "直接选择apk签名";
             this.btn_SignAPK.UseVisualStyleBackColor = true;
             this.btn_SignAPK.Click += new System.EventHandler(this.btn_SignAPK_Click);
             // 
@@ -99,9 +98,9 @@
             this.btn_BuildAndSign.Location = new System.Drawing.Point(140, 74);
             this.btn_BuildAndSign.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_BuildAndSign.Name = "btn_BuildAndSign";
-            this.btn_BuildAndSign.Size = new System.Drawing.Size(95, 33);
+            this.btn_BuildAndSign.Size = new System.Drawing.Size(166, 33);
             this.btn_BuildAndSign.TabIndex = 4;
-            this.btn_BuildAndSign.Text = "回编译apk";
+            this.btn_BuildAndSign.Text = "回编译apk并签名";
             this.btn_BuildAndSign.UseVisualStyleBackColor = true;
             this.btn_BuildAndSign.Click += new System.EventHandler(this.btn_BuildAndSign_Click);
             // 
@@ -206,17 +205,6 @@
             this.btn_env.UseVisualStyleBackColor = true;
             this.btn_env.Click += new System.EventHandler(this.Btn_CheckProtect);
             // 
-            // my_sign
-            // 
-            this.my_sign.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.my_sign.Location = new System.Drawing.Point(386, 74);
-            this.my_sign.Name = "my_sign";
-            this.my_sign.Size = new System.Drawing.Size(95, 33);
-            this.my_sign.TabIndex = 16;
-            this.my_sign.Text = "自定义签名";
-            this.my_sign.UseVisualStyleBackColor = true;
-            this.my_sign.Click += new System.EventHandler(this.My_signClick);
-            // 
             // dec_odex
             // 
             this.dec_odex.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -306,32 +294,32 @@
             this.默认签名ToolStripMenuItem.Checked = true;
             this.默认签名ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.默认签名ToolStripMenuItem.Name = "默认签名ToolStripMenuItem";
-            this.默认签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.默认签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.默认签名ToolStripMenuItem.Text = "使用默认签名";
             this.默认签名ToolStripMenuItem.Click += new System.EventHandler(this.默认签名ToolStripMenuItem_Click);
             // 
             // 自定义签名ToolStripMenuItem
             // 
             this.自定义签名ToolStripMenuItem.Name = "自定义签名ToolStripMenuItem";
-            this.自定义签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.自定义签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.自定义签名ToolStripMenuItem.Text = "使用自定义签名";
             this.自定义签名ToolStripMenuItem.Click += new System.EventHandler(this.自定义签名ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
             // 
             // 生成签名ToolStripMenuItem
             // 
             this.生成签名ToolStripMenuItem.Name = "生成签名ToolStripMenuItem";
-            this.生成签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.生成签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.生成签名ToolStripMenuItem.Text = "生成签名";
             // 
             // 签名ToolStripMenuItem
             // 
             this.签名ToolStripMenuItem.Name = "签名ToolStripMenuItem";
-            this.签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.签名ToolStripMenuItem.Text = "签名设置";
             this.签名ToolStripMenuItem.Click += new System.EventHandler(this.签名ToolStripMenuItemClick);
             // 
@@ -343,7 +331,6 @@
             this.ClientSize = new System.Drawing.Size(501, 448);
             this.Controls.Add(this.getArgs);
             this.Controls.Add(this.dec_odex);
-            this.Controls.Add(this.my_sign);
             this.Controls.Add(this.btn_env);
             this.Controls.Add(this.btn_compileDex);
             this.Controls.Add(this.btn_decompileDex);
@@ -378,7 +365,6 @@
 
 		}
 		#endregion
-		private System.Windows.Forms.Button my_sign;
 		private System.Windows.Forms.Button dec_odex;
 		private System.Windows.Forms.Button getArgs;
 		private System.Windows.Forms.TextBox open_path;

@@ -220,4 +220,34 @@
   <data name="ini_settings_file_not_found" xml:space="preserve">
     <value>配置文件不存在</value>
   </data>
+  <data name="compiling_dex" xml:space="preserve">
+    <value>正在回编译dex...</value>
+  </data>
+  <data name="decompiling" xml:space="preserve">
+    <value>正在反编译...</value>
+  </data>
+  <data name="decompiling_dex" xml:space="preserve">
+    <value>正在反编译dex...</value>
+  </data>
+  <data name="dex2jar_ing" xml:space="preserve">
+    <value>正在dex2jar</value>
+  </data>
+  <data name="jar2dex_ing" xml:space="preserve">
+    <value>正在jar2dex...</value>
+  </data>
+  <data name="launching" xml:space="preserve">
+    <value>运行...</value>
+  </data>
+  <data name="odex_ing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="opening" xml:space="preserve">
+    <value>正在打开...</value>
+  </data>
+  <data name="packaging" xml:space="preserve">
+    <value>正在打包...</value>
+  </data>
+  <data name="signing" xml:space="preserve">
+    <value>正在签名...</value>
+  </data>
 </root>
