@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using AutoAPKTool.Properties;
 using IniParser;
+using IniParser.Parser;
 using Ionic.Zip;
 
 namespace AutoAPKTool
@@ -13,10 +14,10 @@ namespace AutoAPKTool
     public partial class MainUI : Form
     {
         private string _apkinfo = "";
-        private string _alis = "";
-        private string _keyword = "";
+        private string _alias = "";
+        private string _password = "";
         private string _path = "";
-        private string _alispass = "";
+        private string _alias_password = "";
 
         public MainUI()
         {
@@ -183,14 +184,33 @@ namespace AutoAPKTool
             else
             {
                 var cmd = Util.GetSignJksArg(apkName);
+                if (File.Exists(Constants.IniSettingsPath) && 自定义签名ToolStripMenuItem.Checked)
+                {
+                    InitSign();
+
+                    if (!File.Exists(Constants.IniSettingsPath))
+                    {
+                        MessageBox.Show(Resources.ini_settings_file_not_found, Resources.info);
+                        return;
+                    }
+
+                    if (_path == null || _alias_password == null || _alias == null || _password == null)
+                    {
+                        MessageBox.Show(Resources.no_sign, Resources.info);
+                        return;
+                    }
+
+                    cmd = Util.GetSignCustomJksArg(apkName, _path, _password);
+                }
+
                 new Thread(() => { Excute(ExcuteJava, cmd, true); }).Start();
             }
         }
 
         private void btn_BuildAndSign_Click(object sender, EventArgs e)
         {
-            var intputFolder = this.open_path.Text;
-            if (!Directory.Exists(intputFolder))
+            var inputFolder = this.open_path.Text;
+            if (!Directory.Exists(inputFolder))
             {
                 MessageBox.Show(Resources.pls_confirm_decompile_package, Resources.info);
                 return;
@@ -200,14 +220,14 @@ namespace AutoAPKTool
             {
                 Filter = Resources.apk_files,
                 DefaultExt = "apk",
-                InitialDirectory = Path.GetDirectoryName(intputFolder),
-                FileName = Path.GetFileName(intputFolder) + "_Mod.apk",
+                InitialDirectory = Path.GetDirectoryName(inputFolder),
+                FileName = Path.GetFileName(inputFolder) + "_Mod.apk",
             };
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var fileName = saveFileDialog.FileName;
-            var args1 = Util.GetBuildArg(intputFolder, fileName);
-            var args2 = Util.GetSignArg(fileName);
+            var args1 = Util.GetBuildArg(inputFolder, fileName);
+            var args2 = Util.GetSignJksArg(fileName);
             // Start
             new Thread(() =>
             {
@@ -322,47 +342,54 @@ namespace AutoAPKTool
 
         private void My_signClick(object sender, EventArgs e)
         {
-            Initsign();
-
-            if (!File.Exists(Constants.MySign))
-            {
-                MessageBox.Show(Resources.no_sign, Resources.info);
-                return;
-            }
-
-            var text = this.open_path.Text;
-            if (Directory.Exists(text))
-            {
-                if (MessageBox.Show(Resources.need_signs, Resources.info, MessageBoxButtons.OKCancel) !=
-                    DialogResult.OK)
-                    return;
-                var allsign = Util.Signapk(_path, _keyword, text, _alis);
-                new Thread(() => { Excute(ExcuteJava, allsign, true); }).Start();
-            }
-            else if (!File.Exists(text) || Path.GetExtension(text) != ".apk")
-            {
-                MessageBox.Show(Resources.no_find_apk, Resources.info);
-            }
-            else
-            {
-                var signapk = Util.Signapk(_path, _keyword, text, _alis);
-                new Thread(() => { Excute(ExcuteJava, signapk, true); }).Start();
-            }
+            // InitSign();
+            //
+            // if (!File.Exists(Constants.IniSettingsPath))
+            // {
+            //     MessageBox.Show(Resources.ini_settings_file_not_found, Resources.info);
+            //     return;
+            // }
+            //
+            // if (_path == null || _alias_password == null || _alias == null || _password == null)
+            // {
+            //     MessageBox.Show(Resources.no_sign, Resources.info);
+            //     return;
+            // }
+            //
+            // var text = this.open_path.Text;
+            // if (Directory.Exists(text))
+            // {
+            //     if (MessageBox.Show(Resources.need_signs, Resources.info, MessageBoxButtons.OKCancel) !=
+            //         DialogResult.OK)
+            //         return;
+            //     var allsign = Util.Signapk(_path, _password, text, _alias);
+            //     new Thread(() => { Excute(ExcuteJava, allsign, true); }).Start();
+            // }
+            // else if (!File.Exists(text) || Path.GetExtension(text) != ".apk")
+            // {
+            //     MessageBox.Show(Resources.no_find_apk, Resources.info);
+            // }
+            // else
+            // {
+            //     var signapk = Util.Signapk(_path, _password, text, _alias);
+            //     new Thread(() => { Excute(ExcuteJava, signapk, true); }).Start();
+            // }
         }
 
 
-        private void Initsign()
+        private void InitSign()
         {
-            if (!File.Exists(Constants.MySign))
+            if (!File.Exists(Constants.IniSettingsPath))
             {
                 return;
             }
 
-            var config = ConfigFile.LoadFile(Constants.MySign);
-            _alis = config.GetConfigValue("alis");
-            _keyword = config.GetConfigValue("password");
-            _path = config.GetConfigValue("path");
-            _alispass = config.GetConfigValue("alispass");
+            var parser = new FileIniDataParser();
+            var data = parser.ReadFile(Constants.IniSettingsPath);
+            _path = data[Constants.CustomJks]["path"];
+            _password = data[Constants.CustomJks]["password"];
+            _alias = data[Constants.CustomJks]["alias"];
+            _alias_password = data[Constants.CustomJks]["alias_password"];
         }
 
         private void 签名ToolStripMenuItemClick(object sender, EventArgs e)

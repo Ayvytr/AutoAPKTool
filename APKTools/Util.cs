@@ -19,16 +19,16 @@
 
         public static string GetPackageNew(string apk)
         {
-            return string.Format("-jar "+Constants.ApkFile +" "+ apk);
+            return string.Format("-jar " + Constants.ApkFile + " " + apk);
         }
 
-        public static string Signapk(string keypath, string keyw, string apkpath, string ais)
-        {
-            return
-                string.Format(
-                    "-jar " + Constants.ApkSigner + " -keystore \"{0}\" -alias  \"{1}\"  -pswd  \"{2}\"  \"{3}\"",
-                    keypath, ais, keyw, apkpath);
-        }
+        // public static string Signapk(string keypath, string keyw, string apkpath, string ais)
+        // {
+        //     return
+        //         string.Format(
+        //             "-jar " + Constants.ApkSigner + " -keystore \"{0}\" -alias  \"{1}\"  -pswd  \"{2}\"  \"{3}\"",
+        //             keypath, ais, keyw, apkpath);
+        // }
 
         public static string DecOdex(string inputOdex, string outputSmali)
         {
@@ -76,14 +76,22 @@
             return $"/c \"\"{Constants.CheckProtect}\" l \"{inputApk}\"";
         }
 
-        public static string GetSignArg(string apkName)
-        {
-            return string.Format("-jar " + Constants.ApkSigner + " -keystore " + Constants.KeyStore + "  -alias androiddebugkey -pswd android " + apkName);
-        }
+        // public static string GetSignArg(string apkName)
+        // {
+        //     return string.Format("-jar " + Constants.ApkSigner + " -keystore " + Constants.KeyStore +
+        //                          "  -alias androiddebugkey -pswd android " + apkName);
+        // }
 
         public static string GetSignJksArg(string apkName)
         {
-            return string.Format("-jar " + Constants.ApkSigner + " sign --ks " + Constants.DefaultJks + "  --ks-pass pass:12345678 " + apkName);
+            return string.Format("-jar " + Constants.ApkSigner + " sign --ks " + Constants.DefaultJks +
+                                 "  --ks-pass pass:12345678 " + apkName);
+        }
+
+        public static string GetSignCustomJksArg(string apkName, string path, string password)
+        {
+            return string.Format("-jar " + Constants.ApkSigner + " sign --ks " + path + "  --ks-pass pass:" + password +
+                                 " " + apkName);
         }
 
         public static string verify_jks(string path, string pass, string alis, string alis_pass)

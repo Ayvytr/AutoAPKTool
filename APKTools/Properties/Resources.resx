@@ -217,4 +217,7 @@
   <data name="support_jks" xml:space="preserve">
     <value>支持类型|*.jks</value>
   </data>
+  <data name="ini_settings_file_not_found" xml:space="preserve">
+    <value>配置文件不存在</value>
+  </data>
 </root>

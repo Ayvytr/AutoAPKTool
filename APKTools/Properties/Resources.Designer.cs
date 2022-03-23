@@ -170,6 +170,15 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 配置文件不存在 的本地化字符串。
+        /// </summary>
+        internal static string ini_settings_file_not_found {
+            get {
+                return ResourceManager.GetString("ini_settings_file_not_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Jar|*.jar 的本地化字符串。
         /// </summary>
         internal static string jar_files {
