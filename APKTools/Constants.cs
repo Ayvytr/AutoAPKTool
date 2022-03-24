@@ -20,8 +20,8 @@
         public static string ApkFile = ".\\tool\\apkfile.jar";
         public static string CopySign = ".\\tool\\sign.keystore";
 
-        public static string DefaultJks = ".\\config\\default.jks";
-        public static string IniSettingsPath = @".\config\settings.ini";
+        public static string DefaultJks = ".\\jks\\default.jks";
+        public static string IniSettingsPath = @".\settings.ini";
 
         public static readonly string KEYVER = ".\\tool\\keyver.jar";
 

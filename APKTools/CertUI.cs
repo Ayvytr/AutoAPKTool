@@ -95,8 +95,7 @@ namespace AutoAPKTool
                 {
                     var dialogResult = MessageBox.Show(
                         isReadIniJks ? Resources.custom_jks_correct : Resources.ask_save_custom_jks,
-                        Resources.info,
-                        isReadIniJks ? MessageBoxButtons.OK : MessageBoxButtons.YesNo,
+                        msg, isReadIniJks ? MessageBoxButtons.OK : MessageBoxButtons.YesNo,
                         MessageBoxIcon.Information);
 
                     if (dialogResult == DialogResult.Yes && !isReadIniJks)
@@ -111,9 +110,10 @@ namespace AutoAPKTool
                         // mainUi.checkCustomJks();
 
                         MessageBox.Show(Resources.save_succeed);
+
+                        data[Constants.Config][Constants.SelectedCustomJks] = true.ToString();
                     }
 
-                    data[Constants.Config][Constants.SelectedCustomJks] = true.ToString();
                 }
                 else
                 {

@@ -569,7 +569,7 @@ namespace AutoAPKTool
                 {
                     ShowCertDialog(null, true);
                 }
-                else if(dialogResult == DialogResult.No)
+                else if (dialogResult == DialogResult.No)
                 {
                     SelectCustomJks();
                 }
@@ -604,14 +604,16 @@ namespace AutoAPKTool
 
         private void CheckSelectedCustomJks()
         {
+            var selectedCustomJks = false;
             if (File.Exists(Constants.IniSettingsPath))
             {
                 var parser = new FileIniDataParser();
                 var data = parser.ReadFile(Constants.IniSettingsPath);
                 var value = data[Constants.Config][Constants.SelectedCustomJks];
-                var selectedCustomJks = value != null && bool.Parse(value);
-                switchSelectJksMenu(selectedCustomJks);
+                selectedCustomJks = value != null && bool.Parse(value);
             }
+
+            switchSelectJksMenu(selectedCustomJks);
         }
 
         private void switchSelectJksMenu(bool selectedCustomJks)
