@@ -200,7 +200,7 @@
     <value>请检测根目录下是否包含as.exe程序</value>
   </data>
   <data name="ask_custom_jks" xml:space="preserve">
-    <value>未发现自定义jks。“是”：选择jks；”否“：创建jks；”取消“；终止操作</value>
+    <value>未发现自定义jks。是否选择jks？</value>
   </data>
   <data name="ask_save_custom_jks" xml:space="preserve">
     <value>是否保存为自定义签名？</value>
@@ -252,5 +252,8 @@
   </data>
   <data name="signing" xml:space="preserve">
     <value>正在签名...</value>
+  </data>
+  <data name="ask_found_custom_jks" xml:space="preserve">
+    <value>发现自定义jks。选择“是”：校验；“否”：重新选择jks；"取消“：终止操作</value>
   </data>
 </root>

@@ -170,7 +170,7 @@ namespace AutoAPKTool
                 {
                     for (var k = 0; k < len; k++)
                     {
-                        Execute(Resources.decompiling,ExcuteJava,
+                        Execute(Resources.decompiling, ExcuteJava,
                             Util.GetDecompilerArg(list[k], inputApk + "\\" + Path.GetFileNameWithoutExtension(list[k])),
                             true);
                     }
@@ -192,7 +192,7 @@ namespace AutoAPKTool
                 var outputFolderName = saveFileDialog.FileName.ToString();
                 string args;
                 args = Util.GetDecompilerArg(inputApk, outputFolderName);
-                new Thread(() => { Execute(Resources.decompiling,ExcuteJava, args, true); }).Start();
+                new Thread(() => { Execute(Resources.decompiling, ExcuteJava, args, true); }).Start();
             }
         }
 
@@ -233,7 +233,7 @@ namespace AutoAPKTool
                     cmd = Util.GetSignCustomJksArg(apkName, _path, _password);
                 }
 
-                new Thread(() => { Execute(Resources.signing,ExcuteJava, cmd, true); }).Start();
+                new Thread(() => { Execute(Resources.signing, ExcuteJava, cmd, true); }).Start();
             }
         }
 
@@ -261,7 +261,7 @@ namespace AutoAPKTool
             // Start
             new Thread(() =>
             {
-                Execute(Resources.packaging,ExcuteJava, args1, true); // Build
+                Execute(Resources.packaging, ExcuteJava, args1, true); // Build
                 Execute(Resources.signing, ExcuteJava, args2, true); // Sign
             }).Start();
         }
@@ -284,7 +284,7 @@ namespace AutoAPKTool
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var outputJar = saveFileDialog.FileName.ToString();
             var dex2JarArg = Util.GetDex2JarArg(inputDex, outputJar);
-            new Thread(() => { Execute(Resources.dex2jar_ing,ExcuteCmd, dex2JarArg, true); }).Start();
+            new Thread(() => { Execute(Resources.dex2jar_ing, ExcuteCmd, dex2JarArg, true); }).Start();
         }
 
         // Form Event
@@ -312,7 +312,8 @@ namespace AutoAPKTool
                 return;
             }
 
-            new Thread(() => { Execute(Resources.opening,ExcuteCmd, "/c " + Constants.JarJdGui + " " + path, false); }).Start();
+            new Thread(() => { Execute(Resources.opening, ExcuteCmd, "/c " + Constants.JarJdGui + " " + path, false); })
+                .Start();
         }
 
         private void btn_openFile_Click(object sender, EventArgs e)
@@ -343,7 +344,7 @@ namespace AutoAPKTool
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var outputFolderName = saveFileDialog.FileName.ToString();
             var decompilerDex = Util.GetDecompilerDex(inputDex, outputFolderName);
-            new Thread(() => { Execute(Resources.decompiling_dex,ExcuteJava, decompilerDex, true); }).Start();
+            new Thread(() => { Execute(Resources.decompiling_dex, ExcuteJava, decompilerDex, true); }).Start();
         }
 
         private void Btn_compileDexClick(object sender, EventArgs e)
@@ -366,7 +367,7 @@ namespace AutoAPKTool
             var fileName = saveFileDialog.FileName;
             var buildDex = Util.GetBuildDex(folderName, fileName);
 
-            new Thread(() => { Execute(Resources.compiling_dex,ExcuteJava, buildDex, true); }).Start();
+            new Thread(() => { Execute(Resources.compiling_dex, ExcuteJava, buildDex, true); }).Start();
         }
 
 
@@ -497,7 +498,7 @@ namespace AutoAPKTool
             var outputFolderName = saveFileDialog.FileName.ToString();
             var decodex = Util.DecOdex(text, outputFolderName);
 
-            new Thread(() => { Execute(Resources.odex_ing,ExcuteJava, decodex, true); }).Start();
+            new Thread(() => { Execute(Resources.odex_ing, ExcuteJava, decodex, true); }).Start();
         }
 
         private void Btn_ArmToAsm_Click(object sender, EventArgs e)
@@ -509,12 +510,12 @@ namespace AutoAPKTool
 
         private void openJadx_Click(object sender, EventArgs e)
         {
-            new Thread(() => { Execute(Resources.opening,ExcuteCmd, "/c " + Constants.Jadx, false); }).Start();
+            new Thread(() => { Execute(Resources.opening, ExcuteCmd, "/c " + Constants.Jadx, false); }).Start();
         }
 
         private void openJdigui_Click(object sender, EventArgs e)
         {
-            new Thread(() => { Execute(Resources.opening,ExcuteJava, "-jar " + Constants.Jdgui, false); }).Start();
+            new Thread(() => { Execute(Resources.opening, ExcuteJava, "-jar " + Constants.Jdgui, false); }).Start();
         }
 
         private void Btn_jarToDexClick(object sender, EventArgs e)
@@ -535,7 +536,7 @@ namespace AutoAPKTool
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var outputJar = saveFileDialog.FileName;
             var jar2DexArg = Util.GetJar2DexArg(text, outputJar);
-            new Thread(() => { Execute(Resources.jar2dex_ing,ExcuteCmd, jar2DexArg, true); }).Start();
+            new Thread(() => { Execute(Resources.jar2dex_ing, ExcuteCmd, jar2DexArg, true); }).Start();
         }
 
         private void MainUI_Load(object sender, EventArgs e)
@@ -562,24 +563,34 @@ namespace AutoAPKTool
 
             if (customJksExists)
             {
-                ShowCertDialog(null, true);
+                var dialogResult = MessageBox.Show(Resources.ask_found_custom_jks, Resources.info,
+                    MessageBoxButtons.YesNoCancel);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    ShowCertDialog(null, true);
+                }
+                else if(dialogResult == DialogResult.No)
+                {
+                    SelectCustomJks();
+                }
             }
             else
             {
                 var dialogResult = MessageBox.Show(Resources.ask_custom_jks, Resources.info,
-                    MessageBoxButtons.YesNoCancel);
+                    MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var dialog = new OpenFileDialog() {Filter = Resources.support_jks};
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        ShowCertDialog(dialog.FileName, false);
-                    }
+                    SelectCustomJks();
                 }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //创建jks
-                }
+            }
+        }
+
+        private void SelectCustomJks()
+        {
+            var dialog = new OpenFileDialog() {Filter = Resources.support_jks};
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ShowCertDialog(dialog.FileName, false);
             }
         }
 
