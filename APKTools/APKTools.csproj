@@ -99,7 +99,6 @@
       <DependentUpon>ArmToAsmUI.cs</DependentUpon>
     </Compile>
     <Compile Include="CheckProtect.cs" />
-    <Compile Include="ConfigFile.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="MainUI.cs">
       <SubType>Form</SubType>

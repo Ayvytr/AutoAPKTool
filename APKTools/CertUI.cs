@@ -45,23 +45,6 @@ namespace AutoAPKTool
             }
         }
 
-        private void MakeClick(object sender, EventArgs e)
-        {
-            if (text_path.Text == "" || text_alis.Text == "" || text_pass.Text == "" || text_alis_pass.Text == "")
-            {
-                MessageBox.Show(Resources.pls_config, Resources.info_);
-                return;
-            }
-
-            var config = ConfigFile.LoadOrCreateFile(Constants.MySign);
-            File.Copy(text_path.Text, Constants.CopySign, true);
-            config["path"] = Constants.CopySign;
-            config["alis"] = text_alis.Text;
-            config["password"] = text_pass.Text;
-            config["alispass"] = text_alis_pass.Text;
-            MessageBox.Show("证书配置文件生成成功", "提示");
-        }
-
         private void Verify_keyClick(object sender, EventArgs e)
         {
             var ver = Util.verify_jks(text_path.Text, text_pass.Text, text_alis.Text, text_alis_pass.Text);
