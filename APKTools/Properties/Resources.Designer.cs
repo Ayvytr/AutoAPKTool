@@ -188,6 +188,15 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   查找类似 完成！ 的本地化字符串。
+        /// </summary>
+        internal static string finish {
+            get {
+                return ResourceManager.GetString("finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 提示 的本地化字符串。
         /// </summary>
         internal static string info {

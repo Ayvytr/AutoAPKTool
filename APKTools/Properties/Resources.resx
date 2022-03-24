@@ -232,6 +232,9 @@
   <data name="dex2jar_ing" xml:space="preserve">
     <value>正在dex2jar</value>
   </data>
+  <data name="finish" xml:space="preserve">
+    <value>完成！</value>
+  </data>
   <data name="jar2dex_ing" xml:space="preserve">
     <value>正在jar2dex...</value>
   </data>

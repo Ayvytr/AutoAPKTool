@@ -55,7 +55,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.生成签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.tsLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pb = new System.Windows.Forms.ToolStripProgressBar();
             this.menu.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // open_path
@@ -153,12 +157,12 @@
             // Log
             // 
             this.Log.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Log.Location = new System.Drawing.Point(12, 201);
+            this.Log.Location = new System.Drawing.Point(18, 201);
             this.Log.Multiline = true;
             this.Log.Name = "Log";
             this.Log.ReadOnly = true;
             this.Log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Log.Size = new System.Drawing.Size(476, 235);
+            this.Log.Size = new System.Drawing.Size(463, 235);
             this.Log.TabIndex = 11;
             // 
             // btn_jadx
@@ -237,7 +241,7 @@
             this.settingsItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(501, 25);
+            this.menu.Size = new System.Drawing.Size(495, 25);
             this.menu.TabIndex = 19;
             this.menu.Text = "配置";
             // 
@@ -323,12 +327,42 @@
             this.签名ToolStripMenuItem.Text = "签名设置";
             this.签名ToolStripMenuItem.Click += new System.EventHandler(this.签名ToolStripMenuItemClick);
             // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsLabel,
+            this.pb});
+            this.statusStrip.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(495, 36);
+            this.statusStrip.TabIndex = 20;
+            // 
+            // tsLabel
+            // 
+            this.tsLabel.AutoSize = false;
+            this.tsLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            this.tsLabel.Name = "tsLabel";
+            this.tsLabel.Size = new System.Drawing.Size(160, 31);
+            this.tsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pb
+            // 
+            this.pb.AutoSize = false;
+            this.pb.MarqueeAnimationSpeed = 200;
+            this.pb.Maximum = 100000;
+            this.pb.Name = "pb";
+            this.pb.Size = new System.Drawing.Size(310, 30);
+            this.pb.Step = 1;
+            this.pb.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pb.Tag = "";
+            // 
             // MainUI
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(501, 448);
+            this.ClientSize = new System.Drawing.Size(495, 481);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.getArgs);
             this.Controls.Add(this.dec_odex);
             this.Controls.Add(this.btn_env);
@@ -360,6 +394,8 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -392,6 +428,9 @@
         private System.Windows.Forms.ToolStripMenuItem 默认签名ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 自定义签名ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel tsLabel;
+        private System.Windows.Forms.ToolStripProgressBar pb;
     }
 }
 
