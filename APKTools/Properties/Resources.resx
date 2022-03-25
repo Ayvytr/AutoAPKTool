@@ -256,4 +256,10 @@
   <data name="ask_found_custom_jks" xml:space="preserve">
     <value>发现自定义jks。选择“是”：校验；“否”：重新选择jks；"取消“：终止操作</value>
   </data>
+  <data name="succeed" xml:space="preserve">
+    <value>成功！</value>
+  </data>
+  <data name="failed" xml:space="preserve">
+    <value>失败！</value>
+  </data>
 </root>

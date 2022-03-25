@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Timers;
@@ -65,6 +66,7 @@ namespace AutoAPKTool
             base.Invoke(new Action(delegate
             {
                 Log.Clear();
+                tsLabel.ForeColor = Color.Black;
                 this.tsLabel.Text = msg;
                 pb.Value = pb.Minimum;
             }));
@@ -94,6 +96,8 @@ namespace AutoAPKTool
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
+
+            bool isSucceed = true;
             using (var process = new Process())
             {
                 process.StartInfo = processStartInfo;
@@ -111,6 +115,7 @@ namespace AutoAPKTool
                 process.ErrorDataReceived += delegate(object s, DataReceivedEventArgs e)
                 {
                     base.Invoke(new Action(delegate { this.SetTextBoxStr(e.Data); }));
+                    isSucceed = e.Data == null;
                 };
                 process.Start();
                 process.BeginOutputReadLine();
@@ -124,7 +129,8 @@ namespace AutoAPKTool
 
             base.Invoke(new Action(delegate
             {
-                tsLabel.Text = Resources.finish;
+                tsLabel.ForeColor = isSucceed ? Color.Green : Color.Red;
+                tsLabel.Text = isSucceed ? Resources.succeed : Resources.failed;
                 pb.Value = pb.Maximum;
             }));
         }

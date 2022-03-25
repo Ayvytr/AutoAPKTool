@@ -340,6 +340,7 @@
             // tsLabel
             // 
             this.tsLabel.AutoSize = false;
+            this.tsLabel.ForeColor = System.Drawing.Color.Black;
             this.tsLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
             this.tsLabel.Name = "tsLabel";
             this.tsLabel.Size = new System.Drawing.Size(160, 31);

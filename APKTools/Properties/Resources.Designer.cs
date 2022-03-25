@@ -188,6 +188,15 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 失败！.
+        /// </summary>
+        internal static string failed {
+            get {
+                return ResourceManager.GetString("failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 文件夹|*.
         /// </summary>
         internal static string files {
@@ -445,6 +454,15 @@ namespace AutoAPKTool.Properties {
         internal static string signing {
             get {
                 return ResourceManager.GetString("signing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 成功！.
+        /// </summary>
+        internal static string succeed {
+            get {
+                return ResourceManager.GetString("succeed", resourceCulture);
             }
         }
         
