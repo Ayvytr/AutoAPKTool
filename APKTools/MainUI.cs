@@ -309,19 +309,6 @@ namespace AutoAPKTool
         }
 
 
-        private void btn_JdGUI_Click(object sender, EventArgs e)
-        {
-            var path = this.open_path.Text;
-            if (!File.Exists(path) || Path.GetExtension(path) != ".jar")
-            {
-                MessageBox.Show(Resources.no_find_jar, Resources.info);
-                return;
-            }
-
-            new Thread(() => { Execute(Resources.opening, ExcuteCmd, "/c " + Constants.JarJdGui + " " + path, false); })
-                .Start();
-        }
-
         private void btn_openFile_Click(object sender, EventArgs e)
         {
             var op = new OpenFileDialog {Filter = Resources.support_file};

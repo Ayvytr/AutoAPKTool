@@ -34,7 +34,6 @@
             this.btn_BuildAndSign = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_dex2jar = new System.Windows.Forms.Button();
-            this.btn_JdGUI = new System.Windows.Forms.Button();
             this.btn_openFile = new System.Windows.Forms.Button();
             this.Log = new System.Windows.Forms.TextBox();
             this.btn_jadx = new System.Windows.Forms.Button();
@@ -48,7 +47,6 @@
             this.jadxItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jdguiItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arm转机器码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.默认签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.自定义签名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +63,7 @@
             // open_path
             // 
             this.open_path.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.open_path.Location = new System.Drawing.Point(56, 36);
+            this.open_path.Location = new System.Drawing.Point(51, 36);
             this.open_path.Margin = new System.Windows.Forms.Padding(6);
             this.open_path.Name = "open_path";
             this.open_path.ReadOnly = true;
@@ -75,10 +73,10 @@
             // btn_Decompiler
             // 
             this.btn_Decompiler.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_Decompiler.Location = new System.Drawing.Point(18, 74);
+            this.btn_Decompiler.Location = new System.Drawing.Point(13, 74);
             this.btn_Decompiler.Margin = new System.Windows.Forms.Padding(6);
             this.btn_Decompiler.Name = "btn_Decompiler";
-            this.btn_Decompiler.Size = new System.Drawing.Size(95, 33);
+            this.btn_Decompiler.Size = new System.Drawing.Size(140, 33);
             this.btn_Decompiler.TabIndex = 1;
             this.btn_Decompiler.Text = "反编译apk";
             this.btn_Decompiler.UseVisualStyleBackColor = true;
@@ -87,10 +85,10 @@
             // btn_SignAPK
             // 
             this.btn_SignAPK.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_SignAPK.Location = new System.Drawing.Point(321, 74);
+            this.btn_SignAPK.Location = new System.Drawing.Point(335, 74);
             this.btn_SignAPK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_SignAPK.Name = "btn_SignAPK";
-            this.btn_SignAPK.Size = new System.Drawing.Size(160, 33);
+            this.btn_SignAPK.Size = new System.Drawing.Size(140, 33);
             this.btn_SignAPK.TabIndex = 3;
             this.btn_SignAPK.Text = "直接选择apk签名";
             this.btn_SignAPK.UseVisualStyleBackColor = true;
@@ -99,10 +97,10 @@
             // btn_BuildAndSign
             // 
             this.btn_BuildAndSign.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_BuildAndSign.Location = new System.Drawing.Point(140, 74);
-            this.btn_BuildAndSign.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_BuildAndSign.Location = new System.Drawing.Point(177, 74);
+            this.btn_BuildAndSign.Margin = new System.Windows.Forms.Padding(6);
             this.btn_BuildAndSign.Name = "btn_BuildAndSign";
-            this.btn_BuildAndSign.Size = new System.Drawing.Size(166, 33);
+            this.btn_BuildAndSign.Size = new System.Drawing.Size(140, 33);
             this.btn_BuildAndSign.TabIndex = 4;
             this.btn_BuildAndSign.Text = "回编译apk并签名";
             this.btn_BuildAndSign.UseVisualStyleBackColor = true;
@@ -112,7 +110,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(18, 41);
+            this.label1.Location = new System.Drawing.Point(13, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 17);
             this.label1.TabIndex = 5;
@@ -121,31 +119,19 @@
             // btn_dex2jar
             // 
             this.btn_dex2jar.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_dex2jar.Location = new System.Drawing.Point(18, 118);
+            this.btn_dex2jar.Location = new System.Drawing.Point(12, 116);
             this.btn_dex2jar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_dex2jar.Name = "btn_dex2jar";
-            this.btn_dex2jar.Size = new System.Drawing.Size(95, 33);
+            this.btn_dex2jar.Size = new System.Drawing.Size(141, 33);
             this.btn_dex2jar.TabIndex = 6;
             this.btn_dex2jar.Text = "dex转jar";
             this.btn_dex2jar.UseVisualStyleBackColor = true;
             this.btn_dex2jar.Click += new System.EventHandler(this.btn_dex2jar_Click);
             // 
-            // btn_JdGUI
-            // 
-            this.btn_JdGUI.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_JdGUI.Location = new System.Drawing.Point(140, 118);
-            this.btn_JdGUI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_JdGUI.Name = "btn_JdGUI";
-            this.btn_JdGUI.Size = new System.Drawing.Size(95, 33);
-            this.btn_JdGUI.TabIndex = 7;
-            this.btn_JdGUI.Text = "打开jar";
-            this.btn_JdGUI.UseVisualStyleBackColor = true;
-            this.btn_JdGUI.Click += new System.EventHandler(this.btn_JdGUI_Click);
-            // 
             // btn_openFile
             // 
             this.btn_openFile.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_openFile.Location = new System.Drawing.Point(412, 34);
+            this.btn_openFile.Location = new System.Drawing.Point(407, 34);
             this.btn_openFile.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_openFile.Name = "btn_openFile";
             this.btn_openFile.Size = new System.Drawing.Size(69, 30);
@@ -157,20 +143,20 @@
             // Log
             // 
             this.Log.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Log.Location = new System.Drawing.Point(18, 201);
+            this.Log.Location = new System.Drawing.Point(12, 251);
             this.Log.Multiline = true;
             this.Log.Name = "Log";
             this.Log.ReadOnly = true;
             this.Log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Log.Size = new System.Drawing.Size(463, 235);
+            this.Log.Size = new System.Drawing.Size(463, 211);
             this.Log.TabIndex = 11;
             // 
             // btn_jadx
             // 
             this.btn_jadx.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_jadx.Location = new System.Drawing.Point(264, 118);
+            this.btn_jadx.Location = new System.Drawing.Point(177, 116);
             this.btn_jadx.Name = "btn_jadx";
-            this.btn_jadx.Size = new System.Drawing.Size(95, 33);
+            this.btn_jadx.Size = new System.Drawing.Size(140, 33);
             this.btn_jadx.TabIndex = 12;
             this.btn_jadx.Text = "jar转dex";
             this.btn_jadx.UseVisualStyleBackColor = true;
@@ -179,9 +165,9 @@
             // btn_decompileDex
             // 
             this.btn_decompileDex.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_decompileDex.Location = new System.Drawing.Point(18, 162);
+            this.btn_decompileDex.Location = new System.Drawing.Point(12, 159);
             this.btn_decompileDex.Name = "btn_decompileDex";
-            this.btn_decompileDex.Size = new System.Drawing.Size(95, 33);
+            this.btn_decompileDex.Size = new System.Drawing.Size(141, 33);
             this.btn_decompileDex.TabIndex = 13;
             this.btn_decompileDex.Text = "反编译dex";
             this.btn_decompileDex.UseVisualStyleBackColor = true;
@@ -190,9 +176,9 @@
             // btn_compileDex
             // 
             this.btn_compileDex.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_compileDex.Location = new System.Drawing.Point(140, 162);
+            this.btn_compileDex.Location = new System.Drawing.Point(177, 159);
             this.btn_compileDex.Name = "btn_compileDex";
-            this.btn_compileDex.Size = new System.Drawing.Size(95, 33);
+            this.btn_compileDex.Size = new System.Drawing.Size(139, 33);
             this.btn_compileDex.TabIndex = 14;
             this.btn_compileDex.Text = "回编译dex";
             this.btn_compileDex.UseVisualStyleBackColor = true;
@@ -201,9 +187,9 @@
             // btn_env
             // 
             this.btn_env.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_env.Location = new System.Drawing.Point(264, 162);
+            this.btn_env.Location = new System.Drawing.Point(177, 212);
             this.btn_env.Name = "btn_env";
-            this.btn_env.Size = new System.Drawing.Size(95, 33);
+            this.btn_env.Size = new System.Drawing.Size(139, 33);
             this.btn_env.TabIndex = 15;
             this.btn_env.Text = "查壳";
             this.btn_env.UseVisualStyleBackColor = true;
@@ -212,9 +198,9 @@
             // dec_odex
             // 
             this.dec_odex.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dec_odex.Location = new System.Drawing.Point(386, 118);
+            this.dec_odex.Location = new System.Drawing.Point(12, 212);
             this.dec_odex.Name = "dec_odex";
-            this.dec_odex.Size = new System.Drawing.Size(95, 33);
+            this.dec_odex.Size = new System.Drawing.Size(141, 33);
             this.dec_odex.TabIndex = 17;
             this.dec_odex.Text = "odex反编译";
             this.dec_odex.UseVisualStyleBackColor = true;
@@ -223,9 +209,9 @@
             // getArgs
             // 
             this.getArgs.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.getArgs.Location = new System.Drawing.Point(386, 162);
+            this.getArgs.Location = new System.Drawing.Point(335, 212);
             this.getArgs.Name = "getArgs";
-            this.getArgs.Size = new System.Drawing.Size(95, 33);
+            this.getArgs.Size = new System.Drawing.Size(140, 33);
             this.getArgs.TabIndex = 18;
             this.getArgs.Text = "启动命令";
             this.getArgs.UseVisualStyleBackColor = true;
@@ -237,11 +223,10 @@
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开OpenToolStripMenuItem,
             this.arm转机器码ToolStripMenuItem,
-            this.关于ToolStripMenuItem,
             this.settingsItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(495, 25);
+            this.menu.Size = new System.Drawing.Size(487, 25);
             this.menu.TabIndex = 19;
             this.menu.Text = "配置";
             // 
@@ -275,12 +260,6 @@
             this.arm转机器码ToolStripMenuItem.Text = "Arm转机器码";
             this.arm转机器码ToolStripMenuItem.Click += new System.EventHandler(this.Btn_ArmToAsm_Click);
             // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.关于ToolStripMenuItem.Text = "关于";
-            // 
             // settingsItem
             // 
             this.settingsItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -298,32 +277,32 @@
             this.默认签名ToolStripMenuItem.Checked = true;
             this.默认签名ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.默认签名ToolStripMenuItem.Name = "默认签名ToolStripMenuItem";
-            this.默认签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.默认签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.默认签名ToolStripMenuItem.Text = "使用默认签名";
             this.默认签名ToolStripMenuItem.Click += new System.EventHandler(this.默认签名ToolStripMenuItem_Click);
             // 
             // 自定义签名ToolStripMenuItem
             // 
             this.自定义签名ToolStripMenuItem.Name = "自定义签名ToolStripMenuItem";
-            this.自定义签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.自定义签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.自定义签名ToolStripMenuItem.Text = "使用自定义签名";
             this.自定义签名ToolStripMenuItem.Click += new System.EventHandler(this.自定义签名ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // 生成签名ToolStripMenuItem
             // 
             this.生成签名ToolStripMenuItem.Name = "生成签名ToolStripMenuItem";
-            this.生成签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.生成签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.生成签名ToolStripMenuItem.Text = "生成签名";
             // 
             // 签名ToolStripMenuItem
             // 
             this.签名ToolStripMenuItem.Name = "签名ToolStripMenuItem";
-            this.签名ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.签名ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.签名ToolStripMenuItem.Text = "签名设置";
             this.签名ToolStripMenuItem.Click += new System.EventHandler(this.签名ToolStripMenuItemClick);
             // 
@@ -332,9 +311,9 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsLabel,
             this.pb});
-            this.statusStrip.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip.Location = new System.Drawing.Point(0, 465);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(495, 36);
+            this.statusStrip.Size = new System.Drawing.Size(487, 36);
             this.statusStrip.TabIndex = 20;
             // 
             // tsLabel
@@ -352,7 +331,7 @@
             this.pb.MarqueeAnimationSpeed = 200;
             this.pb.Maximum = 100000;
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(310, 30);
+            this.pb.Size = new System.Drawing.Size(300, 30);
             this.pb.Step = 1;
             this.pb.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pb.Tag = "";
@@ -362,7 +341,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 481);
+            this.ClientSize = new System.Drawing.Size(487, 501);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.getArgs);
             this.Controls.Add(this.dec_odex);
@@ -372,7 +351,6 @@
             this.Controls.Add(this.btn_jadx);
             this.Controls.Add(this.Log);
             this.Controls.Add(this.btn_openFile);
-            this.Controls.Add(this.btn_JdGUI);
             this.Controls.Add(this.btn_dex2jar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_BuildAndSign);
@@ -420,7 +398,6 @@
 		private System.Windows.Forms.MenuStrip menu;
 		private System.Windows.Forms.ToolStripMenuItem settingsItem;
 		private System.Windows.Forms.ToolStripMenuItem 签名ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem arm转机器码ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开OpenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jadxItem;
