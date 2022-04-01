@@ -54,12 +54,10 @@ namespace AutoAPKTool
             Log.ScrollToCaret();
         }
 
-        private const int ExcuteJava = 0;
-        private const int ExcuteCmd = 1;
 
         private int timerNum = 0;
 
-        private void Execute(string msg, int flag, object args, bool isShowProgress = true)
+        private void Execute(string msg, object args, ExecuteType type = ExecuteType.JAVA, bool isShowProgress = true)
         {
             timerNum = 0;
 
@@ -85,13 +83,16 @@ namespace AutoAPKTool
                 _apkinfo = "";
             }
 
-            if (flag == 0)
+            switch (type)
             {
-                sh = "java.exe";
-            }
-            else if (flag == 1)
-            {
-                sh = "cmd.exe";
+                case ExecuteType.CMD:
+                    sh = "cmd.exe";
+                    break;
+                case ExecuteType.JAVA:
+                    sh = "java.exe";
+                    break;
+                default:
+                    break;
             }
 
             var processStartInfo = new ProcessStartInfo(sh, args.ToString())
@@ -182,7 +183,7 @@ namespace AutoAPKTool
                 {
                     for (var k = 0; k < len; k++)
                     {
-                        Execute(Resources.decompiling, ExcuteJava,
+                        Execute(Resources.decompiling,
                             Util.GetDecompilerArg(list[k],
                                 inputApk + "\\" + Path.GetFileNameWithoutExtension(list[k])));
                     }
@@ -202,9 +203,8 @@ namespace AutoAPKTool
                 };
                 if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                 var outputFolderName = saveFileDialog.FileName.ToString();
-                string args;
-                args = Util.GetDecompilerArg(inputApk, outputFolderName);
-                new Thread(() => { Execute(Resources.decompiling, ExcuteJava, args); }).Start();
+                string args = Util.GetDecompilerArg(inputApk, outputFolderName);
+                new Thread(() => { Execute(Resources.decompiling, args); }).Start();
             }
         }
 
@@ -216,8 +216,8 @@ namespace AutoAPKTool
                 if (MessageBox.Show(Resources.need_signs, Resources.info, MessageBoxButtons.OKCancel) !=
                     DialogResult.OK)
                     return;
-                var allsign = Util.GetSignJksArg(apkName);
-                new Thread(() => { Execute(Resources.signing, ExcuteJava, allsign); }).Start();
+                var args = Util.GetSignJksArg(apkName);
+                new Thread(() => { Execute(Resources.signing, args); }).Start();
             }
             else if (!File.Exists(apkName) || Path.GetExtension(apkName) != ".apk")
             {
@@ -245,7 +245,7 @@ namespace AutoAPKTool
                     cmd = Util.GetSignCustomJksArg(apkName, _path, _password);
                 }
 
-                new Thread(() => { Execute(Resources.signing, ExcuteJava, cmd); }).Start();
+                new Thread(() => { Execute(Resources.signing, cmd); }).Start();
             }
         }
 
@@ -273,8 +273,8 @@ namespace AutoAPKTool
             // Start
             new Thread(() =>
             {
-                Execute(Resources.packaging, ExcuteJava, args1); // Build
-                Execute(Resources.signing, ExcuteJava, args2); // Sign
+                Execute(Resources.packaging, args1); // Build
+                Execute(Resources.signing, args2); // Sign
             }).Start();
         }
 
@@ -296,7 +296,7 @@ namespace AutoAPKTool
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var outputJar = saveFileDialog.FileName.ToString();
             var dex2JarArg = Util.GetDex2JarArg(inputDex, outputJar);
-            new Thread(() => { Execute(Resources.dex2jar_ing, ExcuteCmd, dex2JarArg); }).Start();
+            new Thread(() => { Execute(Resources.dex2jar_ing, dex2JarArg, ExecuteType.CMD); }).Start();
         }
 
         // Form Event
@@ -343,7 +343,7 @@ namespace AutoAPKTool
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var outputFolderName = saveFileDialog.FileName.ToString();
             var decompilerDex = Util.GetDecompilerDex(inputDex, outputFolderName);
-            new Thread(() => { Execute(Resources.decompiling_dex, ExcuteJava, decompilerDex); }).Start();
+            new Thread(() => { Execute(Resources.decompiling_dex, decompilerDex); }).Start();
         }
 
         private void Btn_compileDexClick(object sender, EventArgs e)
@@ -366,7 +366,7 @@ namespace AutoAPKTool
             var fileName = saveFileDialog.FileName;
             var buildDex = Util.GetBuildDex(folderName, fileName);
 
-            new Thread(() => { Execute(Resources.compiling_dex, ExcuteJava, buildDex); }).Start();
+            new Thread(() => { Execute(Resources.compiling_dex, buildDex); }).Start();
         }
 
 
@@ -463,10 +463,10 @@ namespace AutoAPKTool
                 return;
             }
 
-            var cmd = Util.GetPackageNew(text);
+            var args = Util.GetPackageNew(text);
             new Thread(() =>
             {
-                Execute(Resources.launching, ExcuteJava, cmd, false);
+                Execute(Resources.launching, args, ExecuteType.JAVA, false);
                 GetString();
             }).Start();
         }
@@ -497,7 +497,7 @@ namespace AutoAPKTool
             var outputFolderName = saveFileDialog.FileName.ToString();
             var decodex = Util.DecOdex(text, outputFolderName);
 
-            new Thread(() => { Execute(Resources.odex_ing, ExcuteJava, decodex); }).Start();
+            new Thread(() => { Execute(Resources.odex_ing, decodex); }).Start();
         }
 
         private void Btn_ArmToAsm_Click(object sender, EventArgs e)
@@ -509,12 +509,15 @@ namespace AutoAPKTool
 
         private void openJadx_Click(object sender, EventArgs e)
         {
-            new Thread(() => { Execute(Resources.opening, ExcuteCmd, "/c " + Constants.Jadx, false); }).Start();
+            new Thread(() => { Execute(Resources.opening, "/c " + Constants.Jadx, ExecuteType.CMD, false); }).Start();
         }
 
         private void openJdigui_Click(object sender, EventArgs e)
         {
-            new Thread(() => { Execute(Resources.opening, ExcuteJava, "-jar " + Constants.Jdgui, false); }).Start();
+            new Thread(() =>
+            {
+                Execute(Resources.opening, "-jar " + Constants.Jdgui, ExecuteType.JAVA, false);
+            }).Start();
         }
 
         private void Btn_jarToDexClick(object sender, EventArgs e)
@@ -535,7 +538,7 @@ namespace AutoAPKTool
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
             var outputJar = saveFileDialog.FileName;
             var jar2DexArg = Util.GetJar2DexArg(text, outputJar);
-            new Thread(() => { Execute(Resources.jar2dex_ing, ExcuteCmd, jar2DexArg); }).Start();
+            new Thread(() => { Execute(Resources.jar2dex_ing, jar2DexArg, ExecuteType.CMD); }).Start();
         }
 
         private void MainUI_Load(object sender, EventArgs e)
