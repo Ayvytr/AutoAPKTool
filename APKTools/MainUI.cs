@@ -401,7 +401,7 @@ namespace AutoAPKTool
 
             if (this.InvokeRequired) // 获取一个值指示此次调用是否来自非UI线程
             {
-                this.Invoke(new ChangeTextBoxValue(SetText), str);
+                this.Invoke(new delegateSetLogText(SetText), str);
             }
             else
             {
@@ -409,7 +409,7 @@ namespace AutoAPKTool
             }
         }
 
-        public delegate void ChangeTextBoxValue(string str);
+        public delegate void delegateSetLogText(string str);
 
         private void GetString()
         {
