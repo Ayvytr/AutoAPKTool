@@ -146,6 +146,15 @@ namespace AutoAPKTool
                 tsLabel.ForeColor = isSucceed ? Color.Green : Color.Red;
                 tsLabel.Text = isSucceed ? Resources.succeed : Resources.failed;
                 pb.Value = pb.Maximum;
+
+                /**
+                 * 失败弹框时，如果不是进程被占用，弹框询问是否修改命令并重新执行
+                 */
+                if (!isSucceed && !Log.Text.Contains("另一个程序正在使用此文件，进程无法访问"))
+                {
+                    // MessageBox.Show(Resources.exec_command_failed)
+                    new AskExecCommandAgainForm(msg, args, type, isShowProgress).Show(this);
+                }
             }));
         }
 
@@ -516,15 +525,14 @@ namespace AutoAPKTool
 
         private void openJadx_Click(object sender, EventArgs e)
         {
-            new Thread(() => { Execute(Resources.open + "Jadx", "/c " + Constants.Jadx, ExecuteType.CMD, false); }).Start();
+            new Thread(() => { Execute(Resources.open + "Jadx", "/c " + Constants.Jadx, ExecuteType.CMD, false); })
+                .Start();
         }
 
         private void openJdigui_Click(object sender, EventArgs e)
         {
-            new Thread(() =>
-            {
-                Execute(Resources.open + "JdGui", "-jar " + Constants.Jdgui, ExecuteType.JAVA, false);
-            }).Start();
+            new Thread(() => { Execute(Resources.open + "JdGui", "-jar " + Constants.Jdgui, ExecuteType.JAVA, false); })
+                .Start();
         }
 
         private void Btn_jarToDexClick(object sender, EventArgs e)
@@ -629,6 +637,11 @@ namespace AutoAPKTool
         {
             默认签名ToolStripMenuItem.Checked = !selectedCustomJks;
             自定义签名ToolStripMenuItem.Checked = selectedCustomJks;
+        }
+
+        public void performExecute(string msg, string args, ExecuteType type, bool isShowProgress)
+        {
+            new Thread(() => { Execute(msg, args, type, isShowProgress); }).Start();
         }
     }
 }

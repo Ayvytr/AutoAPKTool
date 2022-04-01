@@ -98,6 +98,12 @@
     <Compile Include="ArmToAsmUI.designer.cs">
       <DependentUpon>ArmToAsmUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="AskExecCommandAgainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AskExecCommandAgainForm.Designer.cs">
+      <DependentUpon>AskExecCommandAgainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CheckProtect.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ExecuteType.cs" />
@@ -123,6 +129,9 @@
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="ArmToAsmUI.resx">
       <DependentUpon>ArmToAsmUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AskExecCommandAgainForm.resx">
+      <DependentUpon>AskExecCommandAgainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainUI.resx">
       <DependentUpon>MainUI.cs</DependentUpon>
