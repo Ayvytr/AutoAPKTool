@@ -368,6 +368,15 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 打开.
+        /// </summary>
+        internal static string open {
+            get {
+                return ResourceManager.GetString("open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 正在打开....
         /// </summary>
         internal static string opening {

@@ -123,7 +123,11 @@ namespace AutoAPKTool
                 process.Start();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
-                process.WaitForExit();
+                if (isShowProgress)
+                {
+                    process.WaitForExit();
+                }
+
                 process.Close();
                 process.Dispose();
             }
@@ -509,14 +513,14 @@ namespace AutoAPKTool
 
         private void openJadx_Click(object sender, EventArgs e)
         {
-            new Thread(() => { Execute(Resources.opening, "/c " + Constants.Jadx, ExecuteType.CMD, false); }).Start();
+            new Thread(() => { Execute(Resources.open + "Jadx", "/c " + Constants.Jadx, ExecuteType.CMD, false); }).Start();
         }
 
         private void openJdigui_Click(object sender, EventArgs e)
         {
             new Thread(() =>
             {
-                Execute(Resources.opening, "-jar " + Constants.Jdgui, ExecuteType.JAVA, false);
+                Execute(Resources.open + "JdGui", "-jar " + Constants.Jdgui, ExecuteType.JAVA, false);
             }).Start();
         }
 

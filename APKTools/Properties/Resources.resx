@@ -262,4 +262,7 @@
   <data name="failed" xml:space="preserve">
     <value>失败！</value>
   </data>
+  <data name="open" xml:space="preserve">
+    <value>打开</value>
+  </data>
 </root>
