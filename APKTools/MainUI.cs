@@ -118,7 +118,10 @@ namespace AutoAPKTool
                 process.ErrorDataReceived += delegate(object s, DataReceivedEventArgs e)
                 {
                     base.Invoke(new Action(delegate { this.SetLogText(e.Data); }));
-                    isSucceed = e.Data == null;
+                    if (isSucceed)
+                    {
+                        isSucceed = e.Data == null;
+                    }
                 };
                 process.Start();
                 process.BeginOutputReadLine();
