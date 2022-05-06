@@ -188,6 +188,24 @@ namespace AutoAPKTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 执行失败.
+        /// </summary>
+        internal static string execute_failed {
+            get {
+                return ResourceManager.GetString("execute_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 执行成功.
+        /// </summary>
+        internal static string execute_succeed {
+            get {
+                return ResourceManager.GetString("execute_succeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 失败！.
         /// </summary>
         internal static string failed {

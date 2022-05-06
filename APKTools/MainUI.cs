@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
@@ -10,6 +13,7 @@ using AutoAPKTool.Properties;
 using IniParser;
 using IniParser.Parser;
 using Ionic.Zip;
+using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace AutoAPKTool
 {
@@ -20,6 +24,9 @@ namespace AutoAPKTool
         private string _password = "";
         private string _path = "";
         private string _alias_password = "";
+
+        //任务栏进度：https://www.iteye.com/blog/wx1569585608-2501516
+        private TaskbarManager windowsTaskbar = TaskbarManager.Instance;
 
         public MainUI()
         {
@@ -67,6 +74,8 @@ namespace AutoAPKTool
                 tsLabel.ForeColor = Color.Black;
                 this.tsLabel.Text = msg;
                 pb.Value = pb.Minimum;
+                windowsTaskbar.SetProgressState(TaskbarProgressBarState.Normal, this.Handle);
+
             }));
 
             var timer = new System.Timers.Timer();
@@ -147,6 +156,22 @@ namespace AutoAPKTool
                 tsLabel.Text = isSucceed ? Resources.succeed : Resources.failed;
                 pb.Value = pb.Maximum;
 
+                windowsTaskbar.SetProgressState(isSucceed ? TaskbarProgressBarState.Normal : TaskbarProgressBarState.Error, this.Handle);
+                windowsTaskbar.SetProgressValue(pb.Maximum, pb.Maximum);
+
+                NotifyIcon ni = new NotifyIcon();
+                ni.Icon = new Icon("icon.ico");
+                ni.BalloonTipTitle = "Message";
+
+                StringBuilder sb = new StringBuilder(open_path.Text.Substring(open_path.Text.LastIndexOf("\\") + 1));
+                sb.Append(": ");
+                sb.Append(isSucceed ? Resources.execute_succeed : Resources.execute_failed);
+                ni.BalloonTipText = sb.ToString();
+                ni.Visible = true;
+                ni.ShowBalloonTip(0);
+
+                TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_TIMERNOFG);
+
                 /**
                  * 失败弹框时，如果不是进程被占用，弹框询问是否修改命令并重新执行
                  */
@@ -163,7 +188,11 @@ namespace AutoAPKTool
             timerNum += 10;
             if (timerNum <= 90000)
             {
-                base.Invoke(new Action(delegate { pb.Value = timerNum; }));
+                base.Invoke(new Action(delegate { 
+                    pb.Value = timerNum;
+                    windowsTaskbar.SetProgressValue(timerNum, 100000, this.Handle);
+
+                }));
             }
         }
 
@@ -559,6 +588,10 @@ namespace AutoAPKTool
         private void MainUI_Load(object sender, EventArgs e)
         {
             CheckSelectedCustomJks();
+
+            //初始化界面和进度条
+            windowsTaskbar.SetProgressState(TaskbarProgressBarState.Normal, this.Handle);
+            windowsTaskbar.SetProgressValue(0, 100000, this.Handle);
         }
 
         private void 默认签名ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -642,6 +675,22 @@ namespace AutoAPKTool
         public void performExecute(string msg, string args, ExecuteType type, bool isShowProgress)
         {
             new Thread(() => { Execute(msg, args, type, isShowProgress); }).Start();
+        }
+
+
+        //切到最顶部不起作用
+        private void MainUi_GetFocus(object sender, EventArgs e)
+        {
+            var isTrue= TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_TIMERNOFG);
+            if (isTrue == false)
+            {
+                //如果窗口未激活，那么就停止闪烁，高亮
+                TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_STOP);
+            }
+            if(pb.Value == pb.Maximum)
+            {
+                windowsTaskbar.SetProgressState(TaskbarProgressBarState.NoProgress);
+            }
         }
     }
 }

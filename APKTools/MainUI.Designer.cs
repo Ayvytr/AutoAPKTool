@@ -1,4 +1,6 @@
-﻿namespace AutoAPKTool
+﻿using System;
+
+namespace AutoAPKTool
 {
 	partial class MainUI
 	{
@@ -72,6 +74,7 @@
             // 
             // btn_Decompiler
             // 
+            this.btn_Decompiler.AutoSize = true;
             this.btn_Decompiler.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btn_Decompiler.Location = new System.Drawing.Point(13, 74);
             this.btn_Decompiler.Margin = new System.Windows.Forms.Padding(6);
@@ -360,7 +363,6 @@
             this.Controls.Add(this.menu);
             this.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menu;
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -371,6 +373,7 @@
             this.Load += new System.EventHandler(this.MainUI_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.GotFocus += new System.EventHandler(this.MainUi_GetFocus);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -379,8 +382,9 @@
             this.PerformLayout();
 
 		}
-		#endregion
-		private System.Windows.Forms.Button dec_odex;
+
+        #endregion
+        private System.Windows.Forms.Button dec_odex;
 		private System.Windows.Forms.Button getArgs;
 		private System.Windows.Forms.TextBox open_path;
 		private System.Windows.Forms.Button btn_Decompiler;
