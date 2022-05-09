@@ -116,14 +116,18 @@ namespace AutoAPKTool
             using (var process = new Process())
             {
                 process.StartInfo = processStartInfo;
-                process.OutputDataReceived += delegate(object s, DataReceivedEventArgs e)
+                if (isShowProgress)
                 {
-                    base.Invoke(new Action(delegate
+                    process.OutputDataReceived += delegate(object s, DataReceivedEventArgs e)
                     {
-                        _apkinfo += e.Data + "\n";
-                        this.SetLogText(e.Data);
-                    }));
-                };
+                        base.Invoke(new Action(delegate
+                        {
+                            _apkinfo += e.Data + "\n";
+                            this.SetLogText(e.Data);
+                        }));
+                    };
+                }
+
                 process.ErrorDataReceived += delegate(object s, DataReceivedEventArgs e)
                 {
                     base.Invoke(new Action(delegate { this.SetLogText(e.Data); }));
@@ -162,11 +166,9 @@ namespace AutoAPKTool
                 NotifyIcon ni = new NotifyIcon();
                 ni.Icon = new Icon("icon.ico");
                 ni.BalloonTipTitle = "Message";
+                ni.BalloonTipIcon = isSucceed ? ToolTipIcon.Info : ToolTipIcon.Error;
 
-                StringBuilder sb = new StringBuilder(open_path.Text.Substring(open_path.Text.LastIndexOf("\\") + 1));
-                sb.Append(": ");
-                sb.Append(isSucceed ? Resources.execute_succeed : Resources.execute_failed);
-                ni.BalloonTipText = sb.ToString();
+                ni.BalloonTipText = isSucceed ? Resources.execute_succeed : Resources.execute_failed;
                 ni.Visible = true;
                 ni.ShowBalloonTip(0);
 
