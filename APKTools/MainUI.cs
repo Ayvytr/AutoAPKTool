@@ -14,6 +14,7 @@ using IniParser;
 using IniParser.Parser;
 using Ionic.Zip;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using Timer = System.Timers.Timer;
 
 namespace AutoAPKTool
 {
@@ -64,6 +65,10 @@ namespace AutoAPKTool
 
         private int timerNum = 0;
 
+        private Timer notifyTimer = new Timer();
+        NotifyIcon ni = new NotifyIcon();
+
+
         private void Execute(string msg, object args, ExecuteType type = ExecuteType.JAVA, bool isShowProgress = true)
         {
             timerNum = 0;
@@ -75,14 +80,13 @@ namespace AutoAPKTool
                 this.tsLabel.Text = msg;
                 pb.Value = pb.Minimum;
                 windowsTaskbar.SetProgressState(TaskbarProgressBarState.Normal, this.Handle);
-
             }));
 
             var timer = new System.Timers.Timer();
             if (isShowProgress)
             {
                 timer.Interval = 10;
-                timer.Elapsed += new System.Timers.ElapsedEventHandler(TimerElapsed);
+                timer.Elapsed += TimerElapsed;
                 timer.Start();
             }
 
@@ -160,17 +164,24 @@ namespace AutoAPKTool
                 tsLabel.Text = isSucceed ? Resources.succeed : Resources.failed;
                 pb.Value = pb.Maximum;
 
-                windowsTaskbar.SetProgressState(isSucceed ? TaskbarProgressBarState.Normal : TaskbarProgressBarState.Error, this.Handle);
+                windowsTaskbar.SetProgressState(
+                    isSucceed ? TaskbarProgressBarState.Normal : TaskbarProgressBarState.Error, this.Handle);
                 windowsTaskbar.SetProgressValue(pb.Maximum, pb.Maximum);
 
-                NotifyIcon ni = new NotifyIcon();
-                ni.Icon = new Icon("icon.ico");
-                ni.BalloonTipTitle = "Message";
-                ni.BalloonTipIcon = isSucceed ? ToolTipIcon.Info : ToolTipIcon.Error;
+                if (File.Exists("icon.ico"))
+                {
+                    ni.Icon = new Icon("icon.ico");
+                    ni.BalloonTipTitle = "Message";
+                    ni.BalloonTipIcon = isSucceed ? ToolTipIcon.Info : ToolTipIcon.Error;
 
-                ni.BalloonTipText = isSucceed ? Resources.execute_succeed : Resources.execute_failed;
-                ni.Visible = true;
-                ni.ShowBalloonTip(0);
+                    ni.BalloonTipText = isSucceed ? Resources.execute_succeed : Resources.execute_failed;
+                    ni.Visible = true;
+                    ni.ShowBalloonTip(0);
+
+                    notifyTimer.Start();
+                    notifyTimer.Interval = 10000;
+                    notifyTimer.Elapsed += NotifyIconClose;
+                }
 
                 TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_TIMERNOFG);
 
@@ -185,15 +196,21 @@ namespace AutoAPKTool
             }));
         }
 
+        private void NotifyIconClose(object sender, ElapsedEventArgs e)
+        {
+            ni.Visible = false;
+            notifyTimer.Stop();
+        }
+
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             timerNum += 10;
             if (timerNum <= 90000)
             {
-                base.Invoke(new Action(delegate { 
+                base.Invoke(new Action(delegate
+                {
                     pb.Value = timerNum;
                     windowsTaskbar.SetProgressValue(timerNum, 100000, this.Handle);
-
                 }));
             }
         }
@@ -683,13 +700,14 @@ namespace AutoAPKTool
         //切到最顶部不起作用
         private void MainUi_GetFocus(object sender, EventArgs e)
         {
-            var isTrue= TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_TIMERNOFG);
+            var isTrue = TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_TIMERNOFG);
             if (isTrue == false)
             {
                 //如果窗口未激活，那么就停止闪烁，高亮
                 TaskbarFlash.FlashWindowEx(Handle, TaskbarFlash.flashType.FLASHW_STOP);
             }
-            if(pb.Value == pb.Maximum)
+
+            if (pb.Value == pb.Maximum)
             {
                 windowsTaskbar.SetProgressState(TaskbarProgressBarState.NoProgress);
             }
